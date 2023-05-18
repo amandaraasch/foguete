@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>foguete</title>
+</head>
+<style>
+    body
+    {
+        width: 100%;
+        background-image: linear-gradient(to bottom, rgb(22, 30, 51),rgb(135, 48, 70));
+        height: 100vh;
+        overflow: hidden;
+    }
+    .foguete
+    {
+        position: absolute;
+        left:50%;
+        margin-left:20px;
+        top:100vh;
+        margin-top:-150px;
+        z-index: 1;
+
+    }
+    .lua
+    {
+        position: absolute;
+        margin-left: -10px;
+        margin-top: 0px;
+    }
+</style>
+<body>
+
+
+    <img class="foguete" id="foguete" src="foguete.gif" width="100px">
+    <img class="lua" id="lua" src="lua.png" width="400px">
+    
+    
+   
+    
+</body>
+<script src="jquery.js"></script>
+<script>
+
+    //vamos pegar o tempo inicial:
+    d = new Date();
+    tempo_inicial = d.getTime();
+
+    
+    temporizador = setTimeout(Subir,1000)
+    x = 100
+    y = 200
+    ESQUERDA = ""
+    TOPO = ""
+    function Subir()
+    {
+        TOPO = y + "px"
+        ESQUERDA = x + "px"
+        $("#foguete").animate({ left:ESQUERDA,top:TOPO},2000)
+
+        temporizador = null
+        temporizador = setInterval(Descer,2000)
+
+    }
+    function Descer()
+    {
+        y = y + 20
+        if(y>650)
+        {
+            y = 650
+        }
+        TOPO = y + "px"
+        $("#foguete").animate({ left:ESQUERDA,top:TOPO},2000)
+    }
+    document.onkeydown = Pega_Tecla;
+
+function Pega_Tecla(e) 
+{	
+    e = e || window.event;
+
+    tecla = e.keyCode;
+    console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
+
+    d2 = new Date();
+    tempo_final = d2.getTime();
+
+    if(tempo_final-tempo_inicial>1000)
+    {
+        tempo_inicial = tempo_final
+   
+        if(tecla == 37)
+        {
+            $("#foguete").stop()
+            x = x -20
+            ESQUERDA = x + "px"
+            Descer()
+        }
+        if(tecla == 39)
+        {
+            $("#foguete").stop()
+            x = x +20
+            ESQUERDA = x + "px"
+            Descer()
+        }
+    }
+
+}
+    </script>
+</html>
